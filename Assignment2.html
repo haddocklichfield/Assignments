@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset='utf-8' /> 
+        <title>Places I've Lived for 5 Years or More</title>
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css' rel='stylesheet' />
+    
+    <style>
+        /* Insert the CSS code here between the <style> tags */
+        
+    body  { margin:25px; padding:0; }
+        
+    #map1 { position:relative; height:200px; width:100%;}
+
+    #map2 { position:relative; height:200px; width:100%;}
+        
+    #map3 { position:relative; height:200px; width:100%;}   
+    </style>
+</head>
+<body>
+    <h1> Map 1: </h1>
+        
+        <div id='map1'></div>
+    
+        <hr>
+      
+    <h1> Map 2:</h1>
+      
+        <div id='map2'></div>
+    
+        <hr>
+    
+    <h1> Map 3: </h1>
+    
+        <div id='map3'></div>
+    
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoiam9tZXJzb24iLCJhIjoiY2o1bXE2bHlyMnJhZDMzbnpyMnhlODdpcSJ9.QJMJ_cTFCY050aZfSn1umQ';
+        
+        // initialize the first map
+        var map1 = new mapboxgl.Map({
+            container: 'map1',
+            style: 'mapbox://styles/mapbox/satellite-streets-v12',
+            center: [-123.0868,44.0521], // Eugene
+            zoom: 11,
+        });
+           
+        // Initialize the second map
+        var map2 = new mapboxgl.Map({
+            container: 'map2',
+            style: 'mapbox://styles/mapbox/satellite-streets-v12',
+            center: [-122.9007,47.0379], // Olympia
+            zoom: 11,
+        });
+        
+        // Initialize the third map
+        var map3 = new mapboxgl.Map({
+            container: 'map3',
+            style: 'mapbox://styles/mapbox/satellite-streets-v12',
+            center: [-123.0351,44.9429], // Salem
+            zoom: 11,
+        });
+        
+        // Add popups and markers to the map
+        
+        var popup = new mapboxgl.Popup()
+            .setText('Eugene');
+
+        var marker = new mapboxgl.Marker({color:'LightGreen'})
+            .setLngLat([-123.0868,44.0521]) // starting position [lng, lat]
+            .setPopup(popup) //add the popup to the marker 
+            .addTo(map1);
+        
+            map1.dragPan.disable();
+            map1.scrollZoom.disable();
+            map1.boxZoom.disable();
+            map1.dragRotate.disable();
+            map1.keyboard.disable();
+            map1.doubleClickZoom.disable();
+            map1.touchZoomRotate.disable();
+            map1.touchZoomRotate.disableRotation();
+        
+        var popup2 = new mapboxgl.Popup()
+            .setText('Olympia');
+
+        var marker2 = new mapboxgl.Marker({color:'LightGreen'})
+            .setLngLat([-122.9007,47.0379]) // starting position [lng, lat]
+            .setPopup(popup2) //add the popup to the marker 
+            .addTo(map2);
+        
+            map2.dragPan.disable();
+            map2.scrollZoom.disable();
+            map2.boxZoom.disable();
+            map2.dragRotate.disable();
+            map2.keyboard.disable();
+            map2.doubleClickZoom.disable();
+            map2.touchZoomRotate.disable();
+            map2.touchZoomRotate.disableRotation();
+        
+       var popup3 = new mapboxgl.Popup()
+            .setText('Salem');
+
+        var marker3 = new mapboxgl.Marker({color:'LightGreen'})
+            .setLngLat([-123.0351,44.9429]) // starting position [lng, lat]
+            .setPopup(popup3) //add the popup to the marker 
+            .addTo(map3);
+        
+            map3.dragPan.disable();
+            map3.scrollZoom.disable();
+            map3.boxZoom.disable();
+            map3.dragRotate.disable();
+            map3.keyboard.disable();
+            map3.doubleClickZoom.disable();
+            map3.touchZoomRotate.disable();
+            map3.touchZoomRotate.disableRotation();
+        
+        map1.getCanvas().style.cursor = 'auto';
+        map2.getCanvas().style.cursor = 'auto';
+        map3.getCanvas().style.cursor = 'auto';
+        
+    </script>
+
+</body>
+</html>
