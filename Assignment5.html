@@ -1,89 +1,181 @@
-<!-- A Versatile Layout for Full-screen Maps by Andy Cochran
-Andy Cochran 
-From https://medium.com/nyc-planning-digital/a-versatile-layout-for-full-screen-maps-229cec508b22 -->
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Tourist Guide to Washington, D.C.</title>
+/*Some elements need explicit heights on large screens which are used to calculate the size of full-height components. */
+.site-header {
+  height: 4rem;
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.1);
+  padding: 0 1rem;
+}
 
-        <!-- JavaScript Libraries-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.js"></script>
+.site-title {
+  font-size: 1.25rem;
+  line-height: 4rem;
+}
 
-        <!-- CSS Links -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css" rel="stylesheet" />
-        <link href="Assignment5.css" rel="stylesheet" />
-    </head>
+/*.site-main contains everything except the header. On large screens, it fills the remaining height of the window.*/
+.site-main {
+  position: relative;
+  z-index: 1;
+  /*large screens*/
+}
+@media screen and (min-width: 64em) {
+  .site-main {
+    height: calc(100vh - 4rem);
+  }
+}
 
-    <body>
-        <div class="site-header">
-            <strong class="site-title">Things To Do in D.C.</strong>
-        </div>
+.search-container {
+  position: relative;
+  z-index: 3;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0.25rem 0.25rem;
+  /* On medium screens, search is removed from the grid layout and positioned absolute at the top of the sidebar.*/
+  /*On large screens, search and sidebar move to the left. */
+}
+@media print, screen and (min-width: 40em) {
+  .search-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 15rem;
+    height: 3.25rem;
+    overflow: visible;
+    background-color: WhiteSmoke;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), -4px 0 0 rgba(0, 0, 0, 0.1);
+  }
+}
+@media screen and (min-width: 64em) {
+  .search-container {
+    right: auto;
+    left: 0;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), 4px 0 0 rgba(0, 0, 0, 0.1);
+  }
+}
 
-        <div class="site-main grid-x has-content-open">
-            <div class="search-container cell medium-3 large-2">
-                <input type="text" placeholder="Search..." class="search" />
-                <ul class="search-results no-bullet">
-                    <li>Parks</li>
-                    <li>Museums</li>
-                    <li>Historic buildings</li>
-                </ul>
-            </div>
+.search {
+  margin: 0;
+}
 
-            <div class="map-container cell medium-auto large-order-2">
-                <!--  ADD iframe here, inside the versatile layout's map container (VI.2.)   -->
-                <iframe src="index5.html" title="Map"></iframe>
-            </div>
+.search-results {
+  display: none;
+  margin: 0;
+  /*medium screens*/
+}
+@media print, screen and (min-width: 40em) {
+  .search-results {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 100%;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+  }
+}
+.search-results li {
+  border-top: 1px solid #ddd;
+  padding: 0.25rem;
+}
 
-            <!--  Sidebar panel  -->
-            <div class="sidebar cell medium-3 large-2 large-order-1 show-for-medium">
-                <h5>Learn More</h5>
-                <ul>
-                    <li><a class="content-link" href="#">Fun!</a></li>
-                    <li>Bicycle Rentals</li>
-                    <li>Theater</li>
-                    <li>Live Music</li>
-                    <li>Bars</li>
-                </ul>
+.search:focus + .search-results {
+  display: block;
+  background-color: White;
+}
 
-                <hr />
-            </div>
+.map-container {
+  height: 80vh;
+  /* large screens*/
+}
+@media screen and (min-width: 64em) {
+  .map-container {
+    height: 100%;
+  }
+}
 
-            <div class="content-close-button-container">
-                <a href="#" class="content-close-button">×</a>
-            </div>
+iframe {
+  width: 100%;
+  height: 100%;
+}
 
-            <!--  Content panel  -->
-            <div class="content cell large-5 large-order-3">
-                <h2>Fun in D.C.</h2>
-                <p>Sure, there are plenty of historic buildings and museums to take in during your visit to Washington, but what else is there to do?</p>
-                <!--Resemblance to actual activities available in D.C. is purely coincidental.-->
-                <p>
-                    Rent a bicycle and explore Forest Hills, take in a theater performance, or have drink and some barbeque!
-                </p>
-                <p>Do you love live music? There are lots of choices!</p>
-            </div>
-        </div>
+.sidebar {
+  z-index: 2;
+  padding: 1rem;
+  background-color: WhiteSmoke;
+  /*   On medium screens, the sidebar is set to match the height of the map minus search.*/
+  /*  On large screens, the sidebar is full-height*/
+}
+@media print, screen and (min-width: 40em) {
+  .sidebar {
+    margin-top: 3.25rem;
+    height: calc(60vh - 3.25rem);
+    overflow-y: auto;
+    box-shadow: -4px 0 0 0 rgba(0, 0, 0, 0.1);
+  }
+}
+@media screen and (min-width: 64em) {
+  .sidebar {
+    height: calc(100% - 3.25rem);
+    box-shadow: 4px 0 0 0 rgba(0, 0, 0, 0.1);
+  }
+}
 
-        <script>
-            $(document).ready(function () {
-                $(".content-close-button").click(function () {
-                    $(".content-close-button").hide();
-                    $(".content").hide();
-                    $(".site-main").removeClass("has-content-open");
+.content-close-button-container {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.1);
+  background-color: White;
+  text-align: right;
+  padding: 1rem 1rem 0;
+  margin-bottom: -1rem;
+  /*  large screens*/
+}
+@media screen and (min-width: 64em) {
+  .content-close-button-container {
+    padding: 0;
+    margin-bottom: 0;
+  }
+}
 
-                    // When the map is resized programmatically, window resize must be triggered so that the map renders in the newly allotted space.
-                    window.dispatchEvent(new Event("resize"));
-                });
+.content-close-button {
+  color: #6b717b;
+  font-size: 2rem;
+  line-height: 1;
+  position: relative;
+  margin: 0;
+  width: 1em;
+  /*   On large screens, the close button is positioned on the edge of the content area, overlapping the map.  */
+}
+@media screen and (min-width: 64em) {
+  .content-close-button {
+    display: block;
+    position: fixed;
+    z-index: 3;
+    top: 4.5rem;
+    right: 41.66667%;
+    background-color: White;
+    margin-right: -4px;
+    padding: 0 0.375rem 0.1875rem;
+    box-shadow: -4px 4px 0 rgba(0, 0, 0, 0.1);
+  }
+}
 
-                $(".content-link").click(function () {
-                    $(".content-close-button").show();
-                    $(".content").show();
-                    $(".site-main").addClass("has-content-open");
-                    window.dispatchEvent(new Event("resize"));
-                });
-            });
-        </script>
-    </body>
-</html>
+.content {
+  padding: 1rem;
+  z-index: 3;
+  /*   On medium screens, the content area is set to match the height of the map*/
+}
+@media screen and (min-width: 64em) {
+  .content {
+    box-shadow: -4px 0 0 0 rgba(0, 0, 0, 0.1);
+    height: calc(100%);
+    overflow-y: auto;
+  }
+}
+
+/* On medium screens, if the content area is not open, make the map and sidebar full-height.*/
+@media print, screen and (min-width: 40em) {
+  .site-main:not(.has-content-open) .map-container,
+.site-main:not(.has-content-open) .sidebar {
+    height: calc(100vh - 4rem);
+  }
+}
