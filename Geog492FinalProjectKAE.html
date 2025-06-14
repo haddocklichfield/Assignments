@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Wide Spots in the Road</title>
+        <meta content="initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport" />
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js"></script>
+        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com" rel="preconnect" />
+        <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: "Georgia", "Palatino Linotype", "Book Antiqua", serif;
+                font-size: 14px;
+                color: #111;
+            }
+            #map {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+            }
+            .popupImage {
+                max-width: 250px;
+                width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+            #title h1 {
+                font-size: 13px;
+                margin: 0;
+                font-weight: bold;
+            }
+            #title h2 {
+                font-size: 11px;
+                margin: 2px 0 0;
+                font-weight: normal;
+            }
+            .mapboxgl-popup-content {
+                font-family: "Georgia", "Palatino Linotype", "Book Antiqua", serif;
+                font-size: 11.5px;
+                color: #111;
+                line-height: 1.4;
+            }
+            #infobox {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                z-index: 1;
+                font-family: "Georgia", "Palatino Linotype", "Book Antiqua", serif;
+                color: #111;
+            }
+
+            #infobox > div {
+                background: rgba(255, 255, 255, 0.45);
+                padding: 6px 10px;
+                margin-bottom: 8px; /* spacing between boxes */
+                border-radius: 3px;
+                font-size: 11.5px;
+                line-height: 1.3;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                max-width: 440px;
+            }
+
+            #title h1 {
+                font-size: 13px;
+                margin: 0;
+                font-weight: bold;
+            }
+
+            #title h2 {
+                font-size: 11px;
+                margin: 2px 0 0;
+                font-weight: normal;
+            }
+
+            #legend h3 {
+                margin: 0 0 6px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+            #legend {
+                width: 200px;
+            }
+            #legend ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            #legend li {
+                display: flex;
+                align-items: center;
+                margin-bottom: 4px;
+            }
+
+            #legend img {
+                width: 18px;
+                height: 18px;
+                margin-right: 6px;
+            }
+            #jumps {
+                width: 200px;
+            }
+
+            #jumps h3 {
+                margin: 0 0 6px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+
+            #jumps button {
+                width: 100%;
+                font-size: 12px;
+                padding: 4px;
+                margin-bottom: 4px;
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <div id="infobox">
+            <div id="title">
+                <h1>Wide Spots in the Road: A Tour of Forgotten Oregon Towns</h1>
+                <h2>By: Kathleen Ehli</h2>
+            </div>
+            <div id="description">
+                <p>
+                    This map highlights small Oregon towns and former towns, grouped by the economic or historical context for their existence. Click a marker to see archival images and learn more. Each town links to a Wikipedia article I
+                    created or expanded, part of an ongoing effort to surface local histories and rescue overlooked places from obscurity.
+                </p>
+            </div>
+            <div id="legend">
+                <h3>Legend</h3>
+                <ul>
+                    <li><img alt="Agriculture icon" src="Agriculture.png" /> Agriculture</li>
+                    <li><img alt="Construction icon" src="Construction.png" /> Construction</li>
+                    <li><img alt="Crossroads icon" src="Crossroads.png" /> Crossroads</li>
+                    <li><img alt="Fishing icon" src="Fishing.png" /> Fishing</li>
+                    <li><img alt="Lumber icon" src="Lumber.png" /> Lumber</li>
+                    <li><img alt="Mining icon" src="Mining.png" /> Mining</li>
+                    <li><img alt="Railroad icon" src="Railroad.png" /> Railroad</li>
+                </ul>
+            </div>
+        </div>
+
+        <script>
+            mapboxgl.accessToken = "pk.eyJ1IjoidmFsZm9udGlzIiwiYSI6ImNtOTF4bDQ4dDA2N3Yyc3B5ZHhyZTVxYXMifQ.HTxXN1ZbkodsmGrMAFUYeA";
+
+            const map = new mapboxgl.Map({
+                container: "map",
+                style: "mapbox://styles/mapbox/outdoors-v12",
+                center: [-120.6, 44.15],
+                zoom: 6.75,
+                minZoom: 5,
+                maxZoom: 15,
+            });
+
+            map.setMaxBounds([
+                [-126.5, 39.5],
+                [-114.5, 48.0],
+            ]);
+
+            map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-right");
+            
+            map.on("load", function () {
+                const icons = [
+                    ["Mining-icon", "Mining.png"],
+                    ["Lumber-icon", "Lumber.png"],
+                    ["Railroad-icon", "Railroad.png"],
+                    ["Construction-icon", "Construction.png"],
+                    ["Crossroads-icon", "Crossroads.png"],
+                    ["Agriculture-icon", "Agriculture.png"],
+                    ["Fishing-icon", "Fishing.png"],
+                ];
+
+                let loadedCount = 0;
+                icons.forEach(([name, path]) => {
+                    map.loadImage(path, function (error, image) {
+                        if (error) throw error;
+                        map.addImage(name, image);
+                        loadedCount++;
+                        if (loadedCount === icons.length) {
+                            map.addSource("places", {
+                                type: "geojson",
+                                data: "wide_spots.geojson",
+                            });
+
+                            map.addLayer({
+                                id: "places",
+                                type: "symbol",
+                                source: "places",
+                                layout: {
+                                    "icon-image": ["concat", ["get", "category"], "-icon"],
+                                    "icon-size": 1,
+                                    "text-field": ["get", "name"],
+                                    "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
+                                    "text-size": 13,
+                                    "text-offset": ["case", ["==", ["get", "name"], "Black Rock"], [0, 1.5], ["==", ["get", "name"], "Copperfield"], [0, 1.5], ["==", ["get", "name"], "Nonpareil"], [0, 1.5], [0, 1.5]],
+                                    "text-anchor": ["case", ["==", ["get", "name"], "Black Rock"], "top-left", ["==", ["get", "name"], "Copperfield"], "top-left", ["==", ["get", "name"], "Nonpareil"], "top-left", "top"],
+                                    "text-allow-overlap": true,
+                                    "icon-allow-overlap": true,
+                                },
+                                paint: {
+                                    "text-color": "#111",
+                                    "text-halo-color": "#b4d79e",
+                                    "text-halo-width": 1,
+                                    "text-halo-blur": 0.5,
+                                },
+                            });
+
+                            map.on("click", "places", function (e) {
+                                const coordinates = e.features[0].geometry.coordinates.slice();
+                                const description = e.features[0].properties.popup;
+                                new mapboxgl.Popup().setLngLat(coordinates).setHTML(description).addTo(map);
+                            });
+
+                            map.on("mouseenter", "places", () => {
+                                map.getCanvas().style.cursor = "pointer";
+                            });
+
+                            map.on("mouseleave", "places", () => {
+                                map.getCanvas().style.cursor = "";
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
