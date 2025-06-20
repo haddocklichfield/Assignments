@@ -113,7 +113,7 @@
             /* Allow the markers underneath textboxes to be clickable */
 
             #infobox {
-            pointer-events: none;
+                pointer-events: none;
             }
 
             #infobox a,
@@ -121,7 +121,7 @@
             #infobox input,
             #infobox label,
             #infobox select {
-            pointer-events: auto;
+                pointer-events: auto;
             }
         </style>
     </head>
@@ -144,15 +144,16 @@
             </div>
             <div id="legend">
                 <h3>Legend</h3>
-                <ul>
-                    <li><img src="Agriculture.png" alt="Agriculture icon" /> Agriculture</li>
-                    <li><img src="Construction.png" alt="Construction icon" /> Construction</li>
-                    <li><img src="Crossroads.png" alt="Crossroads icon" /> Crossroads</li>
-                    <li><img src="Fishing.png" alt="Fishing icon" /> Fishing</li>
-                    <li><img src="Lumber.png" alt="Lumber icon" /> Lumber</li>
-                    <li><img src="Mining.png" alt="Mining icon" /> Mining</li>
-                    <li><img src="Railroad.png" alt="Railroad icon" /> Railroad</li>
-                </ul>
+                <ul id="legendList"></ul>
+                <!--                <ul>-->
+                <!--                    <li><img src="Agriculture.png" alt="Agriculture icon" /> Agriculture</li>-->
+                <!--                    <li><img src="Construction.png" alt="Construction icon" /> Construction</li>-->
+                <!--                    <li><img src="Crossroads.png" alt="Crossroads icon" /> Crossroads</li>-->
+                <!--                    <li><img src="Fishing.png" alt="Fishing icon" /> Fishing</li>-->
+                <!--                    <li><img src="Lumber.png" alt="Lumber icon" /> Lumber</li>-->
+                <!--                    <li><img src="Mining.png" alt="Mining icon" /> Mining</li>-->
+                <!--                    <li><img src="Railroad.png" alt="Railroad icon" /> Railroad</li>-->
+                <!--                </ul>-->
             </div>
         </div>
 
@@ -173,13 +174,13 @@
 
             // Hard bounds: keep user inside Oregon region
             map.setMaxBounds([
-                [-126.5, 41.5], // southwest corner
-                [-114.5, 47.5], // northeast corner
+                [-125.0, 41.9], // southwest corner
+                [-116.5, 46.4], // northeast corner
             ]);
 
             // Add built‑in zoom controls (compass hidden)
             map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-right");
-           
+
             // Load event fires once base style is ready
             map.on("load", () => {
                 // List of custom marker icons to register
@@ -241,7 +242,42 @@
                                     "text-halo-blur": 0.5,
                                 },
                             });
+                            // ---------- build grouped legend ----------
+                            fetch("wide_spots.geojson")
+                                .then((r) => r.json())
+                                .then((data) => {
+                                    const byType = {}; // { Mining:[names], Lumber:[names], … }
 
+                                    data.features.forEach((f) => {
+                                        const cat = f.properties.category;
+                                        const name = f.properties.name;
+                                        if (!byType[cat]) byType[cat] = [];
+                                        byType[cat].push(name);
+                                    });
+
+                                    const ul = document.getElementById("legendList");
+                                    ul.innerHTML = ""; // clear any old content
+
+                                    Object.entries(byType).forEach(([cat, towns]) => {
+                                        // parent <li> with icon + category label
+                                        const li = document.createElement("li");
+                                        li.innerHTML = `<img src="${cat}.png" alt="${cat} icon"> <strong>${cat}</strong>`;
+                                        ul.appendChild(li);
+
+                                        // nested <ul> listing the town names
+                                        const sub = document.createElement("ul");
+                                        sub.style.listStyle = "disc";
+                                        sub.style.margin = "2px 0 6px 26px";
+
+                                        towns.sort().forEach((t) => {
+                                            const item = document.createElement("li");
+                                            item.textContent = t;
+                                            sub.appendChild(item);
+                                        });
+
+                                        ul.appendChild(sub);
+                                    });
+                                });
                             /* Click handler to open popup with HTML from feature property */
                             map.on("click", "places", (e) => {
                                 const coordinates = e.features[0].geometry.coordinates.slice();
@@ -256,25 +292,100 @@
                             /* Pointer cursor feedback */
                             map.on("mouseenter", "places", () => (map.getCanvas().style.cursor = "pointer"));
                             map.on("mouseleave", "places", () => (map.getCanvas().style.cursor = ""));
-                        }
+
+                            fetch("wide_spots.geojson")
+    .then((response) => response.json())
+    .then((data) => {
+        const legendContainer = document.getElementById("legend");
+
+        // Clear existing legend content
+        legendContainer.innerHTML = "<h3>Legend</h3>";
+
+        // Group features by category
+        const grouped = {};
+        for (const feature of data.features) {
+            const cat = feature.properties.category;
+            if (!grouped[cat]) grouped[cat] = [];
+            grouped[cat].push(feature);
+        }
+
+        // Sort each group alphabetically by name
+        for (const cat in grouped) {
+            grouped[cat].sort((a, b) => a.properties.name.localeCompare(b.properties.name));
+        }
+
+        // Display legend groups sorted alphabetically by type
+            for (const cat of Object.keys(grouped).sort()) {
+            const groupBox = document.createElement("div");
+            const icon = document.createElement("img");
+            icon.src = `${cat}.png`;
+            icon.alt = `${cat} icon`;
+            icon.style.width = "18px";
+            icon.style.height = "18px";
+            icon.style.verticalAlign = "middle";
+            icon.style.marginRight = "6px";
+
+            const label = document.createElement("span");
+            label.textContent = cat;
+            label.style.fontWeight = "bold";
+
+            const header = document.createElement("div");
+            header.appendChild(icon);
+            header.appendChild(label);
+
+            const ul = document.createElement("ul");
+            ul.style.listStyle = "none";
+            ul.style.paddingLeft = "24px";
+
+            for (const feature of grouped[cat]) {
+                const li = document.createElement("li");
+                const link = document.createElement("a");
+                link.href = "#";
+                link.textContent = feature.properties.name;
+                link.style.textDecoration = "none";
+                link.style.color = "#111";
+                link.style.fontSize = "11.5px";
+
+                // Zoom on click
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    map.easeTo({
+                        center: feature.geometry.coordinates,
+                        zoom: 10,
+                        duration: 500,
+                    });
+
+                    new mapboxgl.Popup()
+                        .setLngLat(feature.geometry.coordinates)
+                        .setHTML(feature.properties.popup)
+                        .addTo(map);
+                });
+
+                li.appendChild(link);
+                ul.appendChild(li);
+            }
+
+            groupBox.appendChild(header);
+            groupBox.appendChild(ul);
+            legendContainer.appendChild(groupBox);
+        }
+    });
+       }
                     });
                 });
             });
             // Drag constraint: snap back if user pans too far outside Oregon
-    const OR_BOUNDS = [
-        [-125.0, 41.9],  // southwest corner
-        [-116.5, 46.4]   // northeast corner
-    ];
+            const OR_BOUNDS = [
+                [-125.0, 41.9], // southwest corner
+                [-116.5, 46.4], // northeast corner
+            ];
 
-    map.on("dragend", () => {
-        const c = map.getCenter();
-        if (
-            c.lng < OR_BOUNDS[0][0] || c.lng > OR_BOUNDS[1][0] ||
-            c.lat < OR_BOUNDS[0][1] || c.lat > OR_BOUNDS[1][1]
-        ) {
-            map.easeTo({ center: [-120.6, 44.15], duration: 300 });
-        }
-    });
+            map.on("dragend", () => {
+                const c = map.getCenter();
+                if (c.lng < OR_BOUNDS[0][0] || c.lng > OR_BOUNDS[1][0] || c.lat < OR_BOUNDS[0][1] || c.lat > OR_BOUNDS[1][1]) {
+                    map.easeTo({ center: [-120.6, 44.15], duration: 300 });
+                }
+            });
         </script>
     </body>
 </html>
