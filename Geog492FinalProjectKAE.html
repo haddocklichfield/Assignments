@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-
 <html>
     <head>
+        <!-- Character encoding and page title -->
         <meta charset="utf-8" />
         <title>Wide Spots in the Road</title>
-        <meta content="initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport" />
+
+        <!-- Mobile‑friendly viewport settings -->
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+
+        <!-- Mapbox GL JS library (JavaScript + CSS) -->
         <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js"></script>
-        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com" rel="preconnect" />
-        <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+        <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css" />
+
+        <!-- Google Fonts performance hints (optional) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <!-- Page‑level styles -->
         <style>
+            /* Base typography + page reset */
             body {
                 margin: 0;
                 padding: 0;
@@ -17,12 +26,16 @@
                 font-size: 14px;
                 color: #111;
             }
+
+            /* Map canvas fills entire viewport */
             #map {
                 position: absolute;
                 top: 0;
                 bottom: 0;
                 width: 100%;
             }
+
+            /* Responsive images inside popups */
             .popupImage {
                 max-width: 250px;
                 width: 100%;
@@ -30,35 +43,30 @@
                 display: block;
                 margin: 0 auto;
             }
-            #title h1 {
-                font-size: 13px;
-                margin: 0;
-                font-weight: bold;
-            }
-            #title h2 {
-                font-size: 11px;
-                margin: 2px 0 0;
-                font-weight: normal;
-            }
+
+            /* Popup & overlay typography tweaks */
             .mapboxgl-popup-content {
                 font-family: "Georgia", "Palatino Linotype", "Book Antiqua", serif;
                 font-size: 11.5px;
                 color: #111;
                 line-height: 1.4;
             }
+
+            /* Floating info/legend container in top‑left */
             #infobox {
                 position: absolute;
                 top: 10px;
                 left: 10px;
-                z-index: 1;
+                z-index: 1; /* keeps on top of map */
                 font-family: "Georgia", "Palatino Linotype", "Book Antiqua", serif;
                 color: #111;
             }
 
+            /* Individual boxes inside the overlay */
             #infobox > div {
                 background: rgba(255, 255, 255, 0.45);
                 padding: 6px 10px;
-                margin-bottom: 8px; /* spacing between boxes */
+                margin-bottom: 8px;
                 border-radius: 3px;
                 font-size: 11.5px;
                 line-height: 1.3;
@@ -66,64 +74,63 @@
                 max-width: 440px;
             }
 
+            /* Title styles */
             #title h1 {
                 font-size: 13px;
                 margin: 0;
                 font-weight: bold;
             }
-
             #title h2 {
                 font-size: 11px;
                 margin: 2px 0 0;
                 font-weight: normal;
             }
 
+            /* Legend layout */
+            #legend {
+                width: 200px;
+            }
             #legend h3 {
                 margin: 0 0 6px;
                 font-size: 12px;
                 font-weight: bold;
-            }
-            #legend {
-                width: 200px;
             }
             #legend ul {
                 list-style: none;
                 margin: 0;
                 padding: 0;
             }
-
             #legend li {
                 display: flex;
                 align-items: center;
                 margin-bottom: 4px;
             }
-
             #legend img {
                 width: 18px;
                 height: 18px;
                 margin-right: 6px;
             }
-            #jumps {
-                width: 200px;
-            }
+/* Allow the markers underneath textboxes to be clickable */
 
-            #jumps h3 {
-                margin: 0 0 6px;
-                font-size: 12px;
-                font-weight: bold;
-            }
+#infobox {
+    pointer-events: none;
+}
 
-            #jumps button {
-                width: 100%;
-                font-size: 12px;
-                padding: 4px;
-                margin-bottom: 4px;
-                display: block;
-            }
+#infobox a,
+#infobox button,
+#infobox input,
+#infobox label,
+#infobox select {
+    pointer-events: auto;
+}
         </style>
     </head>
+
     <body>
+        <!-- Map container (Mapbox GL will render into this div) -->
         <div id="map"></div>
+
+        <!-- Informational overlay: title, description, legend -->
         <div id="infobox">
             <div id="title">
                 <h1>Wide Spots in the Road: A Tour of Forgotten Oregon Towns</h1>
@@ -138,37 +145,44 @@
             <div id="legend">
                 <h3>Legend</h3>
                 <ul>
-                    <li><img alt="Agriculture icon" src="Agriculture.png" /> Agriculture</li>
-                    <li><img alt="Construction icon" src="Construction.png" /> Construction</li>
-                    <li><img alt="Crossroads icon" src="Crossroads.png" /> Crossroads</li>
-                    <li><img alt="Fishing icon" src="Fishing.png" /> Fishing</li>
-                    <li><img alt="Lumber icon" src="Lumber.png" /> Lumber</li>
-                    <li><img alt="Mining icon" src="Mining.png" /> Mining</li>
-                    <li><img alt="Railroad icon" src="Railroad.png" /> Railroad</li>
+                    <li><img src="Agriculture.png" alt="Agriculture icon" /> Agriculture</li>
+                    <li><img src="Construction.png" alt="Construction icon" /> Construction</li>
+                    <li><img src="Crossroads.png" alt="Crossroads icon" /> Crossroads</li>
+                    <li><img src="Fishing.png" alt="Fishing icon" /> Fishing</li>
+                    <li><img src="Lumber.png" alt="Lumber icon" /> Lumber</li>
+                    <li><img src="Mining.png" alt="Mining icon" /> Mining</li>
+                    <li><img src="Railroad.png" alt="Railroad icon" /> Railroad</li>
                 </ul>
             </div>
         </div>
 
+        <!-- Main mapping script -->
         <script>
+            // 1. Provide Mapbox access token
             mapboxgl.accessToken = "pk.eyJ1IjoidmFsZm9udGlzIiwiYSI6ImNtOTF4bDQ4dDA2N3Yyc3B5ZHhyZTVxYXMifQ.HTxXN1ZbkodsmGrMAFUYeA";
 
+            // 2. Initialize the Map object
             const map = new mapboxgl.Map({
-                container: "map",
-                style: "mapbox://styles/mapbox/outdoors-v12",
-                center: [-120.6, 44.15],
-                zoom: 6.75,
-                minZoom: 5,
-                maxZoom: 15,
+                container: "map", // DOM element id to render into
+                style: "mapbox://styles/mapbox/outdoors-v12", // base map style
+                center: [-120.6, 44.15], // initial map center [lng, lat] to center Oregon only, at least on my PC
+                zoom: 6.75, // starting zoom level
+                minZoom: 5, // user cannot zoom out past this
+                maxZoom: 15, // user cannot zoom in past this
             });
 
+            // 3. Hard bounds: keep user inside Oregon region
             map.setMaxBounds([
-                [-126.5, 39.5],
-                [-114.5, 48.0],
+                [-126.5, 39.5], // southwest corner
+                [-114.5, 48.0], // northeast corner
             ]);
 
+            // 4. Add built‑in zoom controls (compass hidden)
             map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-right");
 
-            map.on("load", function () {
+            // 5. Load event fires once base style is ready
+            map.on("load", () => {
+                // a) List of custom marker icons to register
                 const icons = [
                     ["Mining-icon", "Mining.png"],
                     ["Lumber-icon", "Lumber.png"],
@@ -179,33 +193,47 @@
                     ["Fishing-icon", "Fishing.png"],
                 ];
 
-                let loadedCount = 0;
+                let loadedCount = 0; // helper to know when all images are processed
+
+                // b) Pre‑load each PNG and register with the style
                 icons.forEach(([name, path]) => {
-                    map.loadImage(path, function (error, image) {
+                    map.loadImage(path, (error, image) => {
                         if (error) throw error;
                         map.addImage(name, image);
                         loadedCount++;
+
+                        // When all icons are ready, proceed to add data + layer
                         if (loadedCount === icons.length) {
+                            /* 6. Add GeoJSON source with point features for towns */
                             map.addSource("places", {
                                 type: "geojson",
-                                data: "wide_spots.geojson",
+                                data: "wide_spots.geojson", // external file with coordinates + properties
                             });
 
+                            /* 7. Symbol layer uses custom icons + labels */
                             map.addLayer({
                                 id: "places",
                                 type: "symbol",
                                 source: "places",
                                 layout: {
+                                    // Choose icon based on each feature's "category" property
                                     "icon-image": ["concat", ["get", "category"], "-icon"],
                                     "icon-size": 1,
+
+                                    // Add text label of the town name
                                     "text-field": ["get", "name"],
                                     "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
                                     "text-size": 13,
+
+                                    // Offset/anchor tweaks for overlapping labels
                                     "text-offset": ["case", ["==", ["get", "name"], "Black Rock"], [0, 1.5], ["==", ["get", "name"], "Copperfield"], [0, 1.5], ["==", ["get", "name"], "Nonpareil"], [0, 1.5], [0, 1.5]],
                                     "text-anchor": ["case", ["==", ["get", "name"], "Black Rock"], "top-left", ["==", ["get", "name"], "Copperfield"], "top-left", ["==", ["get", "name"], "Nonpareil"], "top-left", "top"],
+
+                                    // Prevent collision hiding
                                     "text-allow-overlap": true,
                                     "icon-allow-overlap": true,
                                 },
+                                // Style for the text labels: font color, halo color, and halo effect
                                 paint: {
                                     "text-color": "#111",
                                     "text-halo-color": "#b4d79e",
@@ -214,26 +242,20 @@
                                 },
                             });
 
-                            map.on("click", "places", function (e) {
+                            /* 8. Click handler to open popup with HTML from feature property */
+                            map.on("click", "places", (e) => {
                                 const coordinates = e.features[0].geometry.coordinates.slice();
-                                const description = e.features[0].properties.popup;
+                                const description = e.features[0].properties.popup; // pre‑formatted HTML string
 
-                                map.easeTo({
-                                    center: coordinates,
-                                    offset: [0, -100], // Optional: shift up so popup doesn't block marker
-                                    duration: 500,
-                                });
+                                // Optional camera ease so marker is not hidden by popup
+                                map.easeTo({ center: coordinates, offset: [0, -100], duration: 500 });
 
                                 new mapboxgl.Popup().setLngLat(coordinates).setHTML(description).addTo(map);
                             });
 
-                            map.on("mouseenter", "places", () => {
-                                map.getCanvas().style.cursor = "pointer";
-                            });
-
-                            map.on("mouseleave", "places", () => {
-                                map.getCanvas().style.cursor = "";
-                            });
+                            /* 9. Pointer cursor feedback */
+                            map.on("mouseenter", "places", () => (map.getCanvas().style.cursor = "pointer"));
+                            map.on("mouseleave", "places", () => (map.getCanvas().style.cursor = ""));
                         }
                     });
                 });
