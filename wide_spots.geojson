@@ -6,7 +6,7 @@
             "properties": {
                 "name": "Beaver Hill",
                 "category": "Mining",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Beaver_Hill,_Oregon' target='_blank'>Beaver Hill</a></strong><br>Type: Mining<br><img src='https://upload.wikimedia.org/wikipedia/commons/9/93/Locomotive_hauling_ore_cars%2C_Beaver_Hill_Coal_Mine_mill%2C_Coos_Bay%2C_Oregon%2C_circa_1912_%28AL%2BCA_1765%29.jpg' class='popupImage'><br>Attribution: University of Washington, Public domain, via <a href='https://commons.wikimedia.org/wiki/File:Locomotive_hauling_ore_cars,_Beaver_Hill_Coal_Mine_mill,_Coos_Bay,_Oregon,_circa_1912_(AL%2BCA_1765).jpg' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Beaver_Hill,_Oregon' target='_blank'>Beaver Hill</a></strong><br>Type: Mining<br><img src='https://upload.wikimedia.org/wikipedia/commons/9/93/Locomotive_hauling_ore_cars%2C_Beaver_Hill_Coal_Mine_mill%2C_Coos_Bay%2C_Oregon%2C_circa_1912_%28AL%2BCA_1765%29.jpg' class='popupImage' alt='Locomotive hauling ore cars, Beaver Hill Coal Mine mill, 1912' title=\"Locomotive hauling ore cars, Beaver Hill Coal Mine mill, 1912\"><br>Attribution: University of Washington, Public domain, via <a href='https://commons.wikimedia.org/wiki/File:Locomotive_hauling_ore_cars,_Beaver_Hill_Coal_Mine_mill,_Coos_Bay,_Oregon,_circa_1912_(AL%2BCA_1765).jpg' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -18,7 +18,7 @@
             "properties": {
                 "name": "Black Rock",
                 "category": "Lumber",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Black_Rock,_Oregon' target='_blank'>Black Rock</a></strong><br>Type: Lumber<br><img src='https://upload.wikimedia.org/wikipedia/commons/9/92/1957._Salvage_logging_Chermes-killed_and_damaged_silver_fir._Black_Rock%2C_Oregon._%2834061981403%29.jpg' class='popupImage'><br>Attribution: R6, State & Private Forestry, Forest Health Protection, Public domain, via <a href='https://commons.wikimedia.org/wiki/File:1957._Salvage_logging_Chermes-killed_and_damaged_silver_fir._Black_Rock,_Oregon._(34061981403).jpg' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Black_Rock,_Oregon' target='_blank'>Black Rock</a></strong><br>Type: Lumber<br><img src='https://upload.wikimedia.org/wikipedia/commons/9/92/1957._Salvage_logging_Chermes-killed_and_damaged_silver_fir._Black_Rock%2C_Oregon._%2834061981403%29.jpg' class='popupImage' alt='Salvage logging insect-killed and damaged silver fir, Black Rock, Oregon, 1957' title=\"Salvage logging insect-killed and damaged silver fir, Black Rock, Oregon, 1957\"><br>Attribution: K.H. Wright, USDA Forest Service, Public domain, via <a href='https://commons.wikimedia.org/wiki/File:1957._Salvage_logging_Chermes-killed_and_damaged_silver_fir._Black_Rock,_Oregon._(34061981403).jpg' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -30,7 +30,7 @@
             "properties": {
                 "name": "Cazadero",
                 "category": "Railroad",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Cazadero,_Oregon' target='_blank'>Cazadero</a></strong><br>Type: Railroad<br><img src='https://upload.wikimedia.org/wikipedia/commons/c/c3/Dam_and_fish_ladder_on_the_Clackamas_River_at_Cazadero%2C_Oregon_%283230117262%29.jpg' class='popupImage'><br>Attribution: OSU Special Collections & Archives : Commons, No restrictions, via <a href='https://commons.wikimedia.org/wiki/File:Dam_and_fish_ladder_on_the_Clackamas_River_at_Cazadero,_Oregon_(3230117262).jpg' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Cazadero,_Oregon' target='_blank'>Cazadero</a></strong><br>Type: Railroad<br><img src='https://upload.wikimedia.org/wikipedia/commons/c/c3/Dam_and_fish_ladder_on_the_Clackamas_River_at_Cazadero%2C_Oregon_%283230117262%29.jpg' class='popupImage' alt='Dam and fish ladder on the Clackamas River at Cazadero, Oregon, 1904' title=\"Dam and fish ladder on the Clackamas River at Cazadero, Oregon, 1904\"><br>Attribution: Gerald W. Williams Collection, OSU Special Collections & Archives, Public domain, via <a href='https://commons.wikimedia.org/wiki/File:Dam_and_fish_ladder_on_the_Clackamas_River_at_Cazadero,_Oregon_(3230117262).jpg' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -42,7 +42,7 @@
             "properties": {
                 "name": "Copperfield",
                 "category": "Construction",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Copperfield,_Oregon' target='_blank'>Copperfield</a></strong><br>Type: Construction<br><img src='https://upload.wikimedia.org/wikipedia/commons/f/fd/Copperfield%2C_Oregon_%281907%29.jpg' class='popupImage'><br>Unknown author, Public domain, via <a href='https://commons.wikimedia.org/wiki/File:Copperfield,_Oregon_(1907).jpg' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Copperfield,_Oregon' target='_blank'>Copperfield</a></strong><br>Type: Construction<br><img src='https://upload.wikimedia.org/wikipedia/commons/f/fd/Copperfield%2C_Oregon_%281907%29.jpg' class='popupImage' alt='Copperfield, Oregon, circa 1907' title=\"Copperfield, Oregon, circa 1907\"><br>Attribution: Baker County Library Historic Photo Collection, Public domain, via <a href='https://commons.wikimedia.org/wiki/File:Copperfield,_Oregon_(1907).jpg' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -54,7 +54,9 @@
             "properties": {
                 "name": "Disston",
                 "category": "Lumber",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Disston,_Oregon' target='_blank'>Disston</a></strong><br>Type: Lumber<br><img src='https://iiif.oregondigital.org/iiif/f0%2Fdf%2F66%2Fzj%2F52%2Fn-jp2.jp2/full/663,/0/default.jpg' class='popupImage'><br>Attribution: Roy C. Andrews, public domain, via <a href='https://oregondigital.org/concern/images/df66zj52n' target='_blank'>University of Oregon Libraries – Oregon Digital</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Disston,_Oregon' target='_blank'>Disston</a></strong><br>Type: Lumber<br><img src='https://iiif.oregondigital.org/iiif/f0%2Fdf%2F66%2Fzj%2F52%2Fn-jp2.jp2/full/663,/0/default.jpg' style='max-width:250px; max-height:200px; width:auto; height:auto;' alt='Students seated at desks with raised hands at the Disston School, circa 1906' title=\"Students seated at desks with raised hands at the Disston School, circa 1906\"><br>Attribution: Roy C. Andrews, public domain, via <a href='https://oregondigital.org/concern/images/df66zj52n' target='_blank'>University of Oregon Libraries – Oregon Digital</a>",
+
+                "_note": "This image was resized to fit better in the popup."
             },
             "geometry": {
                 "type": "Point",
@@ -66,7 +68,7 @@
             "properties": {
                 "name": "Dolph",
                 "category": "Crossroads",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Dolph,_Oregon' target='_blank'>Dolph</a></strong><br>Type: Crossroads<br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/PHOTO_POINT_-1_-_FORMER_DOLPH_TOWNSITE_-_Dolph_Toll_Road%2C_State_Highway_22_vicinity%2C_Sinslaw_National_Forest%2C_Hebo%2C_Tillamook_County%2C_OR_HAER_ORE%2C29-HEBO.V%2C1-1.tif/lossy-page1-764px-thumbnail.tif.jpg' class='popupImage'><br>Attribution: Historic American Buildings Survey (HABS), Public domain, via <a href='https://commons.wikimedia.org/wiki/File:PHOTO_POINT_-1_-_FORMER_DOLPH_TOWNSITE_-_Dolph_Toll_Road,_State_Highway_22_vicinity,_Sinslaw_National_Forest,_Hebo,_Tillamook_County,_OR_HAER_ORE,29-HEBO.V,1-1.tif' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Dolph,_Oregon' target='_blank'>Dolph</a></strong><br>Type: Crossroads<br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/PHOTO_POINT_-1_-_FORMER_DOLPH_TOWNSITE_-_Dolph_Toll_Road%2C_State_Highway_22_vicinity%2C_Sinslaw_National_Forest%2C_Hebo%2C_Tillamook_County%2C_OR_HAER_ORE%2C29-HEBO.V%2C1-1.tif/lossy-page1-764px-thumbnail.tif.jpg' class='popupImage' alt='Former Dolph Townsite, Dolph Toll Road, 1981' title=\"Former Dolph Townsite, Dolph Toll Road, 1981\"><br>Attribution: Historic American Buildings Survey (HABS), Public domain, via <a href='https://commons.wikimedia.org/wiki/File:PHOTO_POINT_-1_-_FORMER_DOLPH_TOWNSITE_-_Dolph_Toll_Road,_State_Highway_22_vicinity,_Sinslaw_National_Forest,_Hebo,_Tillamook_County,_OR_HAER_ORE,29-HEBO.V,1-1.tif' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -78,7 +80,7 @@
             "properties": {
                 "name": "Fort Rock",
                 "category": "Crossroads",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Fort_Rock,_Oregon' target='_blank'>Fort Rock</a></strong><br>Type: Crossroads<br><img src='https://upload.wikimedia.org/wikipedia/commons/8/85/Fortrockv2.jpg' class='popupImage'><br>Attribution: Rvannatta at English Wikipedia, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via <a href='https://commons.wikimedia.org/wiki/File:Fortrockv2.jpg' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Fort_Rock,_Oregon' target='_blank'>Fort Rock</a></strong><br>Type: Crossroads<br><img src='https://upload.wikimedia.org/wikipedia/commons/8/85/Fortrockv2.jpg' class='popupImage' alt='St. Rose's Catholic Church and windmill from homestead era in Fort Rock area, 2007' title=\"St. Rose's Catholic Church and windmill from homestead era in Fort Rock area, 2007\"><br>Attribution: Rvannatta at English Wikipedia, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via <a href='https://commons.wikimedia.org/wiki/File:Fortrockv2.jpg' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -90,7 +92,7 @@
             "properties": {
                 "name": "Hinkle",
                 "category": "Railroad",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Hinkle,_Oregon' target='_blank'>Hinkle</a></strong><br>Type: Railroad<br><img src='https://upload.wikimedia.org/wikipedia/commons/c/c9/Hinkle_station%2C_Sep_1982.jpg' class='popupImage'><br>Attribution: Hikki Nagasaki, Public domain, via <a href='https://commons.wikimedia.org/wiki/File:Hinkle_station,_Sep_1982.jpg' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Hinkle,_Oregon' target='_blank'>Hinkle</a></strong><br>Type: Railroad<br><img src='https://upload.wikimedia.org/wikipedia/commons/c/c9/Hinkle_station%2C_Sep_1982.jpg' class='popupImage' alt='Hinkle railroad station, 1982' title=\"Hinkle railroad station, 1982\"><br>Attribution: Hikki Nagasaki, Public domain, via <a href= 'https://commons.wikimedia.org/wiki/File:Hinkle_station,_Sep_1982.jpg' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -102,7 +104,7 @@
             "properties": {
                 "name": "Lookingglass",
                 "category": "Crossroads",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Lookingglass,_Oregon' target='_blank'>Lookingglass</a></strong><br>Type: Crossroads<br><img src='https://upload.wikimedia.org/wikipedia/commons/b/b5/Lookingglass_Store_-_DPLA_-_a80d027e3facf899cc0af661e5c41ceb.jpg' class='popupImage'><br>Attribution: Oregon State Archives, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via <a href='https://commons.wikimedia.org/wiki/File:Lookingglass_Store_-_DPLA_-_a80d027e3facf899cc0af661e5c41ceb.jpg' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Lookingglass,_Oregon' target='_blank'>Lookingglass</a></strong><br>Type: Crossroads<br><img src='https://upload.wikimedia.org/wikipedia/commons/b/b5/Lookingglass_Store_-_DPLA_-_a80d027e3facf899cc0af661e5c41ceb.jpg' class='popupImage' alt='Lookingglass Store, 2016' title=\"Lookingglass Store, 2016\"><br>Attribution: Gary Halvorson, Oregon State Archives, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via <a href='https://commons.wikimedia.org/wiki/File:Lookingglass_Store_-_DPLA_-_a80d027e3facf899cc0af661e5c41ceb.jpg' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -114,7 +116,7 @@
             "properties": {
                 "name": "Nibley",
                 "category": "Agriculture",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Nibley,_Oregon' target='_blank'>Nibley</a></strong><br>Type: Agriculture<br><img src='Nibley1906.png' class='popupImage'><br>Attribution: U.S. Geological Survey, Telocaset Quadrangle, Washington–Oregon, 1906, via <a href='https://livingatlas.arcgis.com/topomapexplorer/#maps=&loc=-117.87,45.33&LoD=13.59' target='_blank'>USGS Living Atlas</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Nibley,_Oregon' target='_blank'>Nibley</a></strong><br>Type: Agriculture<br><img src='Nibley1906.png' class='popupImage' alt='Detail of Nibley from the 1906 Telocaset Quadrangle (USGS)' title=\"Detail of Nibley from the 1906 Telocaset Quadrangle (USGS)\"><br>Attribution: U.S. Geological Survey, Telocaset Quadrangle, Washington–Oregon, 1906, via <a href='https://livingatlas.arcgis.com/topomapexplorer/#maps=&loc=-117.87,45.33&LoD=13.59' target='_blank'>USGS Living Atlas</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -126,7 +128,7 @@
             "properties": {
                 "name": "Nonpareil",
                 "category": "Mining",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Nonpareil,_Oregon' target='_blank'>Nonpareil</a></strong><br>Type: Mining<br><img src='https://a4.pbase.com/o6/36/772936/1/79291442.t2zv3s1q.TooFarFromTheFreeway.jpg' class='popupImage'><br>Attribution: Photo by James Henry Willis (© James Henry Willis), used with permission for non-commercial use, via <a href='https://www.pbase.com/glossypan/image/79291442' target='_blank'>PBase</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Nonpareil,_Oregon' target='_blank'>Nonpareil</a></strong><br>Type: Mining<br><img src='https://a4.pbase.com/o6/36/772936/1/79291442.t2zv3s1q.TooFarFromTheFreeway.jpg' class='popupImage' alt='Abandoned store in Nonpareil, Oregon, 2004' title=\"Abandoned store in Nonpareil, Oregon, 2004\"><br>Attribution: Photo by James Henry Willis (© James Henry Willis), used with permission for non-commercial use, via <a href='https://www.pbase.com/glossypan/image/79291442' target='_blank'>PBase</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -138,7 +140,7 @@
             "properties": {
                 "name": "Robinette",
                 "category": "Railroad",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Robinette,_Oregon' target='_blank'>Robinette</a></strong><br>Type: Railroad<br><img src='https://s3.amazonaws.com/pastperfectonline/images/museum_1129/017/2016254.jpg' class='popupImage'><br>Attribution: Pete Basche, via <a href='https://bakerlib.pastperfectonline.com/Photo/0AF91BF6-67FB-4EC5-BAEC-342213128220' target='_blank'>Baker County Library District</a> (CNE) non-commercial educational use only"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Robinette,_Oregon' target='_blank'>Robinette</a></strong><br>Type: Railroad<br><img src='https://s3.amazonaws.com/pastperfectonline/images/museum_1129/017/2016254.jpg' class='popupImage' alt='A view of Robinette looking south up the Snake River, before 1958' title=\"A view of Robinette looking south up the Snake River, before 1958\"><br>Attribution: Pete Basche, via <a href='https://bakerlib.pastperfectonline.com/Photo/0AF91BF6-67FB-4EC5-BAEC-342213128220' target='_blank'>Baker County Library District</a> (CNE) non-commercial educational use only"
             },
             "geometry": {
                 "type": "Point",
@@ -150,7 +152,7 @@
             "properties": {
                 "name": "Valsetz",
                 "category": "Lumber",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Valsetz,_Oregon' target='_blank'>Valsetz</a></strong><br>Type: Lumber<br><img src='https://upload.wikimedia.org/wikipedia/commons/e/ea/Valsetz%2C_Oregon_May_10_2009.jpg' class='popupImage'><br>Attribution: Trashbag at English Wikipedia, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via <a href='https://commons.wikimedia.org/wiki/File:Valsetz,_Oregon_May_10_2009.jpg' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Valsetz,_Oregon' target='_blank'>Valsetz</a></strong><br>Type: Lumber<br><img src='https://upload.wikimedia.org/wikipedia/commons/e/ea/Valsetz%2C_Oregon_May_10_2009.jpg' class='popupImage' alt='Former site of Valsetz, 2009' title=\"Former site of Valsetz, 2009\"><br>Attribution: Trashbag at English Wikipedia, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via <a href='https://commons.wikimedia.org/wiki/File:Valsetz,_Oregon_May_10_2009.jpg' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -162,7 +164,7 @@
             "properties": {
                 "name": "Verboort",
                 "category": "Agriculture",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Verboort,_Oregon' target='_blank'>Verboort</a></strong><br>Type: Agriculture<br><img src='https://upload.wikimedia.org/wikipedia/commons/1/10/Visitation_Catholic_Church_-_Verboort%2C_Oregon.JPG' class='popupImage'><br>Attribution: M.O. Stevens, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via <a href='https://commons.wikimedia.org/wiki/File:Visitation_Catholic_Church_-_Verboort,_Oregon.JPG' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Verboort,_Oregon' target='_blank'>Verboort</a></strong><br>Type: Agriculture<br><img src='https://upload.wikimedia.org/wikipedia/commons/1/10/Visitation_Catholic_Church_-_Verboort%2C_Oregon.JPG' class='popupImage' alt='Visitation Catholic Church, Verboort, Oregon, 2011' title=\"Visitation Catholic Church, Verboort, Oregon, 2011\"><br>Attribution: M.O. Stevens, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via <a href='https://commons.wikimedia.org/wiki/File:Visitation_Catholic_Church_-_Verboort,_Oregon.JPG' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -174,7 +176,7 @@
             "properties": {
                 "name": "Voltage",
                 "category": "Agriculture",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Voltage,_Oregon' target='_blank'>Voltage</a></strong><br>Type: Agriculture<br><img src='https://upload.wikimedia.org/wikipedia/commons/f/fe/Voltage_Windmill_%28Harney_County%2C_Oregon_scenic_images%29_%28harDA0043%29.jpg' class='popupImage'><br>Attribution: Gary Halvorson, Oregon State Archives, Attribution, via <a href='https://commons.wikimedia.org/wiki/File:Voltage_Windmill_(Harney_County,_Oregon_scenic_images)_(harDA0043).jpg' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Voltage,_Oregon' target='_blank'>Voltage</a></strong><br>Type: Agriculture<br><img src='https://upload.wikimedia.org/wikipedia/commons/f/fe/Voltage_Windmill_%28Harney_County%2C_Oregon_scenic_images%29_%28harDA0043%29.jpg' class='popupImage' alt='A windmill near Voltage, Oregon, 2007' title=\"A windmill near Voltage, Oregon, 2007\"><br>Attribution: Gary Halvorson, Oregon State Archives, Attribution, via <a href='https://commons.wikimedia.org/wiki/File:Voltage_Windmill_(Harney_County,_Oregon_scenic_images)_(harDA0043).jpg' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -186,7 +188,7 @@
             "properties": {
                 "name": "Warrendale",
                 "category": "Fishing",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Warrendale,_Oregon' target='_blank'>Warrendale</a></strong><br>Type: Fishing<br><img src='https://upload.wikimedia.org/wikipedia/commons/8/8e/Tahoma_and_Dalles_City_%28sternwheelers%29_at_Warren_1902.jpg' class='popupImage'><br>Attribution: Benjamin A. Gifford (d.1936), Public domain, via <a href='https://commons.wikimedia.org/wiki/File:Tahoma_and_Dalles_City_(sternwheelers)_at_Warren_1902.jpg' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Warrendale,_Oregon' target='_blank'>Warrendale</a></strong><br>Type: Fishing<br><img src='https://upload.wikimedia.org/wikipedia/commons/8/8e/Tahoma_and_Dalles_City_%28sternwheelers%29_at_Warren_1902.jpg' class='popupImage' alt='The steamships Tahoma and Dalles City at Warrendale, Oregon, 1902' title=\"The steamships Tahoma and Dalles City at Warrendale, Oregon, 1902\"><br>Attribution: Benjamin A. Gifford (d.1936), Public domain, via <a href='https://commons.wikimedia.org/wiki/File:Tahoma_and_Dalles_City_(sternwheelers)_at_Warren_1902.jpg' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -198,7 +200,7 @@
             "properties": {
                 "name": "Wedderburn",
                 "category": "Fishing",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Wedderburn,_Oregon' target='_blank'>Wedderburn</a></strong><br>Type: Fishing<br><img src='https://upload.wikimedia.org/wikipedia/commons/8/8c/IsaacLeePattersonBridgeSE.jpg' class='popupImage'><br>Attribution: Cacophony, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via <a href='https://commons.wikimedia.org/wiki/File:IsaacLeePattersonBridgeSE.jpg' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Wedderburn,_Oregon' target='_blank'>Wedderburn</a></strong><br>Type: Fishing<br><img src='https://upload.wikimedia.org/wikipedia/commons/8/8c/IsaacLeePattersonBridgeSE.jpg' class='popupImage' alt='View toward Wedderburn, Oregon from across the Isaac Lee Patterson Bridge, 2008' title=\"View toward Wedderburn, Oregon from across the Isaac Lee Patterson Bridge, 2008\"><br>Attribution: Cacophony, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via <a href='https://commons.wikimedia.org/wiki/File:IsaacLeePattersonBridgeSE.jpg' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
@@ -210,7 +212,7 @@
             "properties": {
                 "name": "Zena",
                 "category": "Agriculture",
-                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Zena,_Oregon' target='_blank'>Zena</a></strong><br>Type: Agriculture<br><img src='https://upload.wikimedia.org/wikipedia/commons/7/70/ZenaChurch%26Cem.JPG' class='popupImage'><br>Attribution: Katr67, Public domain, via <a href='https://commons.wikimedia.org/wiki/File:ZenaChurch%26Cem.JPG' target='_blank'>Wikimedia Commons</a>"
+                "popup": "<strong><a href='https://en.wikipedia.org/wiki/Zena,_Oregon' target='_blank'>Zena</a></strong><br>Type: Agriculture<br><img src='https://upload.wikimedia.org/wikipedia/commons/7/70/ZenaChurch%26Cem.JPG' class='popupImage' alt='Spring Valley Presbyterian Church and graveyard in Zena, Oregon, 2007' title=\"Spring Valley Presbyterian Church and graveyard in Zena, Oregon, 2007\"><br>Attribution: Katr67/Valfontis (Kathleen Ehli), Public domain, via <a href='https://commons.wikimedia.org/wiki/File:ZenaChurch%26Cem.JPG' target='_blank'>Wikimedia Commons</a>"
             },
             "geometry": {
                 "type": "Point",
