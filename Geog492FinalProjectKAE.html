@@ -110,19 +110,19 @@
                 height: 18px;
                 margin-right: 6px;
             }
-/* Allow the markers underneath textboxes to be clickable */
+            /* Allow the markers underneath textboxes to be clickable */
 
-#infobox {
-    pointer-events: none;
-}
+            #infobox {
+            pointer-events: none;
+            }
 
-#infobox a,
-#infobox button,
-#infobox input,
-#infobox label,
-#infobox select {
-    pointer-events: auto;
-}
+            #infobox a,
+            #infobox button,
+            #infobox input,
+            #infobox label,
+            #infobox select {
+            pointer-events: auto;
+            }
         </style>
     </head>
 
@@ -158,31 +158,31 @@
 
         <!-- Main mapping script -->
         <script>
-            // 1. Provide Mapbox access token
+            // Provide Mapbox access token
             mapboxgl.accessToken = "pk.eyJ1IjoidmFsZm9udGlzIiwiYSI6ImNtOTF4bDQ4dDA2N3Yyc3B5ZHhyZTVxYXMifQ.HTxXN1ZbkodsmGrMAFUYeA";
 
-            // 2. Initialize the Map object
+            // Initialize the Map object
             const map = new mapboxgl.Map({
                 container: "map", // DOM element id to render into
                 style: "mapbox://styles/mapbox/outdoors-v12", // base map style
                 center: [-120.6, 44.15], // initial map center [lng, lat] to center Oregon only, at least on my PC
                 zoom: 6.75, // starting zoom level
-                minZoom: 5, // user cannot zoom out past this
+                minZoom: 5.75, // user cannot zoom out past this
                 maxZoom: 15, // user cannot zoom in past this
             });
 
-            // 3. Hard bounds: keep user inside Oregon region
+            // Hard bounds: keep user inside Oregon region
             map.setMaxBounds([
-                [-126.5, 39.5], // southwest corner
-                [-114.5, 48.0], // northeast corner
+                [-126.5, 41.5], // southwest corner
+                [-114.5, 47.5], // northeast corner
             ]);
 
-            // 4. Add built‑in zoom controls (compass hidden)
+            // Add built‑in zoom controls (compass hidden)
             map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-right");
-
-            // 5. Load event fires once base style is ready
+           
+            // Load event fires once base style is ready
             map.on("load", () => {
-                // a) List of custom marker icons to register
+                // List of custom marker icons to register
                 const icons = [
                     ["Mining-icon", "Mining.png"],
                     ["Lumber-icon", "Lumber.png"],
@@ -195,7 +195,7 @@
 
                 let loadedCount = 0; // helper to know when all images are processed
 
-                // b) Pre‑load each PNG and register with the style
+                // Pre‑load each PNG and register with the style
                 icons.forEach(([name, path]) => {
                     map.loadImage(path, (error, image) => {
                         if (error) throw error;
@@ -204,13 +204,13 @@
 
                         // When all icons are ready, proceed to add data + layer
                         if (loadedCount === icons.length) {
-                            /* 6. Add GeoJSON source with point features for towns */
+                            /* Add GeoJSON source with point features for towns */
                             map.addSource("places", {
                                 type: "geojson",
                                 data: "wide_spots.geojson", // external file with coordinates + properties
                             });
 
-                            /* 7. Symbol layer uses custom icons + labels */
+                            /* Symbol layer uses custom icons + labels */
                             map.addLayer({
                                 id: "places",
                                 type: "symbol",
@@ -242,7 +242,7 @@
                                 },
                             });
 
-                            /* 8. Click handler to open popup with HTML from feature property */
+                            /* Click handler to open popup with HTML from feature property */
                             map.on("click", "places", (e) => {
                                 const coordinates = e.features[0].geometry.coordinates.slice();
                                 const description = e.features[0].properties.popup; // pre‑formatted HTML string
@@ -253,13 +253,28 @@
                                 new mapboxgl.Popup().setLngLat(coordinates).setHTML(description).addTo(map);
                             });
 
-                            /* 9. Pointer cursor feedback */
+                            /* Pointer cursor feedback */
                             map.on("mouseenter", "places", () => (map.getCanvas().style.cursor = "pointer"));
                             map.on("mouseleave", "places", () => (map.getCanvas().style.cursor = ""));
                         }
                     });
                 });
             });
+            // Drag constraint: snap back if user pans too far outside Oregon
+    const OR_BOUNDS = [
+        [-125.0, 41.9],  // southwest corner
+        [-116.5, 46.4]   // northeast corner
+    ];
+
+    map.on("dragend", () => {
+        const c = map.getCenter();
+        if (
+            c.lng < OR_BOUNDS[0][0] || c.lng > OR_BOUNDS[1][0] ||
+            c.lat < OR_BOUNDS[0][1] || c.lat > OR_BOUNDS[1][1]
+        ) {
+            map.easeTo({ center: [-120.6, 44.15], duration: 300 });
+        }
+    });
         </script>
     </body>
 </html>
