@@ -11,6 +11,9 @@
         <!-- Mapbox GL JS library (JavaScript + CSS) -->
         <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js"></script>
         <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css" />
+        
+        <!-- Fuse.js for fuzzy search -->
+        <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
         <!-- Google Fonts performance hints (optional) -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -87,7 +90,7 @@
             /* Floating infobox styling */
             .floating-popup {
                 position: absolute;
-                top: 210px; /* adjust to place it below the infobox */
+                top: 240px; /* adjust to place it below the infobox */
                 left: 190px; /* adjust away from infobox */
                 background: rgba(255, 255, 255, 0.45);
                 border-radius: 3px;
@@ -127,6 +130,11 @@
                 font-size: 11px;
                 margin: 2px 0 0;
                 font-weight: normal;
+            }
+           
+            /*-------------------Searchbox styling-------------*/ 
+            #searchbox-container {
+                width: 150px;
             }
 
             /*-------------------Legend styling-------------*/
@@ -190,7 +198,7 @@
         <!-- Map container (Mapbox GL will render into this div) -->
         <div id="map"></div>
 
-        <!-- Informational overlay: title, description, legend -->
+        <!-- Informational overlay: title, description-->
         <div id="infobox">
             <div id="title">
                 <h1>Wide Spots in the Road: A Tour of Forgotten Oregon Towns</h1>
@@ -200,11 +208,22 @@
                 <p>
                     This map highlights small Oregon towns and former towns, grouped by the economic or historical context for their existence. Click a marker to see archival images and learn more. Each town links to a
                     <a href="#" id="wikiInfoLink">Wikipedia</a> article I created or expanded, part of an ongoing effort to surface local histories and rescue overlooked places from obscurity.<br />
-                    <br />
-                    <a id="wikiNavLink" href="#" style="display: block; text-align: center; font-size: smaller;">Navigating Wikipedia</a>
+                    <a id="wikiNavLink" href="#" style="display: block; text-align: right; font-size: smaller;">Navigating Wikipedia</a>
                 </p>
             </div>
+            
+            <!--Search box-->
+            <div id="searchbox-container">
+                <div>
+                    <input type="text" id="searchBox" placeholder="Search towns..." style="width: 140px;" />
+                    <ul id="searchResults" style="margin: 6px 0 0; padding-left: 10px; font-size: 11.5px;"></ul>
+                </div>
+            </div>
+            
+            <!--Legend-->
             <div id="legend"></div>
+            
+            <!--Floating popups-->
             <div id="wikiInfoPopup" class="floating-popup" style="display: none;">
                 <button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
                 <strong>About Wikipedia</strong><br />
@@ -286,6 +305,10 @@
                     // Hide shared floating popup box
                     document.getElementById("floatingPopup").style.display = "none";
 
+                    // Clear searchbox
+                    document.getElementById("searchBox").value = "";
+                    document.getElementById("searchResults").innerHTML = "";
+
                     map.flyTo({
                         center: [-120.6, 44.15], // Original center
                         zoom: 6.75, // Original zoom
@@ -347,7 +370,18 @@
                             /* Click handler to open popup with HTML from feature property */
                             map.on("click", "places", (e) => {
                                 const coordinates = e.features[0].geometry.coordinates.slice();
-                                const description = e.features[0].properties.popup;
+                                
+                               const props = e.features[0].properties;
+
+                                // Split popup into top (before image) and bottom (image + attribution)
+                                const [preImage, rest] = props.popup.split('<br><img');
+
+                                const description = `
+                                    ${preImage}<br>
+                                    County: ${props.county}<br>
+                                    Founded: ${props.founded}<br><img${rest ?? ''}
+                                    `;
+                                
                                 map.easeTo({ center: coordinates, offset: [0, -100], duration: 500 });
 
                                 if (currentPopup) currentPopup.remove(); // close old
@@ -377,10 +411,71 @@
                             map.on("mouseenter", "places", () => (map.getCanvas().style.cursor = "pointer"));
                             map.on("mouseleave", "places", () => (map.getCanvas().style.cursor = ""));
 
+                            // Get GeoJSON
                             fetch("wide_spots.geojson")
                                 .then((response) => response.json())
                                 .then((data) => {
-                                    const legendContainer = document.getElementById("legend");
+                                
+                                
+                                    // ---- FUSE.JS SETUP ----
+                                    const legendContainer = document.getElementById("legend");  
+
+                                    /* ---------- Fuse.js search ---------- */
+                                    const fuse = new Fuse(data.features, {
+                                      keys: [
+                                        "properties.name",
+                                        "properties.category",
+                                        "properties.county",
+                                        "properties.founded"
+                                      ],
+                                      threshold: 0.0,
+                                      useExtendedSearch: true
+                                    });
+
+                                    const searchBox        = document.getElementById("searchBox");
+                                    const resultsContainer = document.getElementById("searchResults");
+
+                                    searchBox.addEventListener("input", e => {
+                                      const q = e.target.value.trim();
+                                      resultsContainer.innerHTML = "";
+                                      if (q === "") return;
+
+                                      fuse.search(`=${q}`).slice(0, 6).forEach(res => {
+                                        const li = document.createElement("li");
+                                        li.textContent   = res.item.properties.name;
+                                        li.style.cursor  = "pointer";
+
+                                        li.addEventListener("click", () => {
+                                          const coords = res.item.geometry.coordinates;
+
+                                          map.flyTo({ center: coords, zoom: 10, speed: 0.8, curve: 1.5 });
+
+                                          map.once("moveend", () => {
+                                            if (currentPopup) currentPopup.remove();
+
+                                            const p = res.item.properties;
+                                            const [preImg, rest] = p.popup.split("<br><img");
+
+                                            const html = `
+                                              ${preImg}<br>
+                                              County: ${p.county}<br>
+                                              Founded: ${p.founded}<br><img${rest ?? ""}
+                                            `;
+
+                                            currentPopup = new mapboxgl.Popup()
+                                              .setLngLat(coords)
+                                              .setHTML(html)
+                                              .addTo(map);
+                                          });
+
+                                          searchBox.value        = "";
+                                          resultsContainer.innerHTML = "";
+                                        });
+
+                                        resultsContainer.appendChild(li);
+                                      });
+                                    });                               
+                                    /* ---------- End Fuse.js block ---------- */
 
                                     // Clear existing legend content
                                     legendContainer.innerHTML = "<h3>Original Industry</h3>";
