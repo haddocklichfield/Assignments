@@ -36,7 +36,7 @@
             }
 
             /*-----------Pop-up styling---------------*/
-            
+
             /* Responsive images inside popups */
             .popupImage {
                 max-width: 250px;
@@ -53,7 +53,7 @@
                 color: #111;
                 line-height: 1.4;
             }
-            
+
             /* Center name text */
             .mapboxgl-popup-content strong {
                 display: block;
@@ -61,7 +61,7 @@
             }
 
             /*-----------Infobox styling---------------*/
-            
+
             /* Floating info/legend container in top-left */
             #infobox {
                 position: absolute;
@@ -83,11 +83,11 @@
                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
                 max-width: 400px;
             }
-            
+
             /* Floating infobox styling */
             .floating-popup {
                 position: absolute;
-                top: 212px; /* adjust to place it below the infobox */
+                top: 210px; /* adjust to place it below the infobox */
                 left: 190px; /* adjust away from infobox */
                 background: rgba(255, 255, 255, 0.45);
                 border-radius: 3px;
@@ -97,24 +97,24 @@
                 line-height: 1.3;
                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
                 max-width: 220px;
-    pointer-events: none;
-    z-index: 2;
-}
+                pointer-events: none;
+                z-index: 2;
+            }
             .floating-popup * {
-  pointer-events: auto; /* re-enable interaction for content inside */
-}
+                pointer-events: auto; /* re-enable interaction for content inside */
+            }
 
-.close-btn {
-  position: absolute;
-  top: 4px;
-  right: 6px;
-  background: none;
-  border: none;
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-  cursor: pointer;
-}
+            .close-btn {
+                position: absolute;
+                top: 4px;
+                right: 6px;
+                background: none;
+                border: none;
+                font-size: 14px;
+                font-weight: bold;
+                color: #333;
+                cursor: pointer;
+            }
 
             /*-------------------Title styling-------------*/
             /* Title styles */
@@ -154,7 +154,7 @@
                 height: 18px;
                 margin-right: 6px;
             }
-            
+
             /* Allow the markers underneath textboxes to be clickable */
 
             #infobox {
@@ -168,20 +168,20 @@
             #infobox select {
                 pointer-events: auto;
             }
-            
+
             /* Reset button style */
             #resetBtn {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background-color: green;
-            color: white;
-            padding: 8px 12px;
-            font-size: 14px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            z-index: 999;
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+                background-color: green;
+                color: white;
+                padding: 8px 12px;
+                font-size: 14px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                z-index: 999;
             }
         </style>
     </head>
@@ -198,22 +198,25 @@
             </div>
             <div id="description">
                 <p>
-                    This map highlights small Oregon towns and former towns, grouped by the economic or historical context for their existence. Click a marker to see archival images and learn more. Each town links to a <a href="#" id="wikiInfoLink">Wikipedia</a> article I
-                    created or expanded, part of an ongoing effort to surface local histories and rescue overlooked places from obscurity.<br><br>
+                    This map highlights small Oregon towns and former towns, grouped by the economic or historical context for their existence. Click a marker to see archival images and learn more. Each town links to a
+                    <a href="#" id="wikiInfoLink">Wikipedia</a> article I created or expanded, part of an ongoing effort to surface local histories and rescue overlooked places from obscurity.<br />
+                    <br />
                     <a id="wikiNavLink" href="#" style="display: block; text-align: center; font-size: smaller;">Navigating Wikipedia</a>
                 </p>
             </div>
-            <div id="legend">
-            </div>
+            <div id="legend"></div>
             <div id="wikiInfoPopup" class="floating-popup" style="display: none;">
                 <button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
-                <strong>About Wikipedia</strong><br><br>
+                <strong>About Wikipedia</strong><br />
+                <br />
                 Wikipedia is a free, collaboratively edited online encyclopedia supported by the Wikimedia Foundation. It allows anyone to contribute or edit articles.
             </div>
-                <div id="wikiNavPopup" class="floating-popup" style="display: none;">
+            <div id="wikiNavPopup" class="floating-popup" style="display: none;">
                 <button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
-                <strong>Navigating Wikipedia</strong><br><br>
-                <strong>More Maps!</strong> In the upper left corner of the Wikipedia article, click on the coordinates to access a variety of maps.<br><br>
+                <strong>Navigating Wikipedia</strong><br />
+                <br />
+                <strong>More Maps!</strong> In the upper left corner of the Wikipedia article, click on the coordinates to access a variety of maps.<br />
+                <br />
                 <strong>More Images!</strong> At the bottom of the Wikipedia article, look for links to more photos and related content.
             </div>
         </div>
@@ -231,41 +234,37 @@
                 container: "map", // DOM element id to render into
                 style: "mapbox://styles/mapbox/outdoors-v12", // base map style
                 center: [-120.6, 44.15], // Centering Oregon with all boundaries visible (in my browser anyway)
-                zoom: 6.75,              // Initial zoom level
-                minZoom: 6,                 // User can't zoom out past here
-                maxZoom: 15,                // User can't zoom in past here
+                zoom: 6.75, // Initial zoom level
+                minZoom: 6, // User can't zoom out past here
+                maxZoom: 15, // User can't zoom in past here
             });
-   
+
             // Add navigation control (zoom in/out buttons, no compass)
             map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-right");
-            
+
             // Track the popup that is currently open
             let currentPopup = null;
 
             // Hard bounds: keep user inside Oregon region (drag constraint)
             const OR_BOUNDS = [
                 [-125.0, 41.9], // southwest corner
-                [-116.5, 46.4]  // northeast corner
+                [-116.5, 46.4], // northeast corner
             ];
 
             // soft bounce if the user lets go outside OR_BOUNDS
             map.on("dragend", () => {
                 const c = map.getCenter();
-                if (
-                    c.lng < OR_BOUNDS[0][0] || c.lng > OR_BOUNDS[1][0] ||
-                    c.lat < OR_BOUNDS[0][1] || c.lat > OR_BOUNDS[1][1]
-                ) {
+                if (c.lng < OR_BOUNDS[0][0] || c.lng > OR_BOUNDS[1][0] || c.lat < OR_BOUNDS[0][1] || c.lat > OR_BOUNDS[1][1]) {
                     map.easeTo({
                         center: [-120.6, 44.15], // middle of Oregon
-                        duration: 600,           // ms, tweak for “gentleness”
-                        easing: t => 1 - Math.pow(1 - t, 3) // smooth cubic ease-out
+                        duration: 600, // ms, tweak for “gentleness”
+                        easing: (t) => 1 - Math.pow(1 - t, 3), // smooth cubic ease-out
                     });
                 }
             });
 
             // Load event fires once base style is ready
             map.on("load", () => {
-            
                 // List of custom marker icons to register
                 const icons = [
                     ["Mining-icon", "Mining.png"],
@@ -274,24 +273,24 @@
                     ["Construction-icon", "Construction.png"],
                     ["Crossroads-icon", "Crossroads.png"],
                     ["Agriculture-icon", "Agriculture.png"],
-                    ["Fishing-icon", "Fishing.png"]
+                    ["Fishing-icon", "Fishing.png"],
                 ];
 
-                // Reset map to initial bounds if Reset Map button is pressed           
+                // Reset map to initial bounds if Reset Map button is pressed
                 document.getElementById("resetBtn").addEventListener("click", () => {
                     if (currentPopup) {
-                    currentPopup.remove();
-                    currentPopup = null;
+                        currentPopup.remove();
+                        currentPopup = null;
                     }
-                    
+
                     // Hide shared floating popup box
-    document.getElementById("floatingPopup").style.display = "none";
-                    
-                 map.flyTo({
-                    center: [-120.6, 44.15], // Original center
-                    zoom: 6.75,              // Original zoom
-                    speed: 0.8,                   // optional: adjust fly speed
-                    curve: 1.42                   // optional: adjust fly curve
+                    document.getElementById("floatingPopup").style.display = "none";
+
+                    map.flyTo({
+                        center: [-120.6, 44.15], // Original center
+                        zoom: 6.75, // Original zoom
+                        speed: 0.8, // optional: adjust fly speed
+                        curve: 1.42, // optional: adjust fly curve
                     });
                 });
 
@@ -310,7 +309,7 @@
                             /* Add GeoJSON source with point features for towns */
                             map.addSource("places", {
                                 type: "geojson",
-                                data: "wide_spots.geojson" // external file with coordinates + properties
+                                data: "wide_spots.geojson", // external file with coordinates + properties
                             });
 
                             /* Symbol layer uses custom icons + labels */
@@ -334,15 +333,15 @@
 
                                     // Prevent collision hiding
                                     "text-allow-overlap": true,
-                                    "icon-allow-overlap": true
+                                    "icon-allow-overlap": true,
                                 },
                                 // Style for the text labels: font color, halo color, and halo effect
                                 paint: {
                                     "text-color": "#111",
                                     "text-halo-color": "#b4d79e",
                                     "text-halo-width": 1,
-                                    "text-halo-blur": 0.5
-                                }
+                                    "text-halo-blur": 0.5,
+                                },
                             });
 
                             /* Click handler to open popup with HTML from feature property */
@@ -351,28 +350,28 @@
                                 const description = e.features[0].properties.popup;
                                 map.easeTo({ center: coordinates, offset: [0, -100], duration: 500 });
 
-                                if (currentPopup) currentPopup.remove();          // close old
-                                currentPopup = new mapboxgl.Popup()               // open new
+                                if (currentPopup) currentPopup.remove(); // close old
+                                currentPopup = new mapboxgl.Popup() // open new
                                     .setLngLat(coordinates)
                                     .setHTML(description)
                                     .addTo(map);
                             });
-                            
+
                             // Wiki info popup (top-left offset to avoid overlapping infobox)
                             document.getElementById("wikiInfoLink").addEventListener("click", (e) => {
-    e.preventDefault();
-    const popup = document.getElementById("floatingPopup");
-    popup.innerHTML = document.getElementById("wikiInfoPopup").innerHTML;
-    popup.style.display = "block";
-});
+                                e.preventDefault();
+                                const popup = document.getElementById("floatingPopup");
+                                popup.innerHTML = document.getElementById("wikiInfoPopup").innerHTML;
+                                popup.style.display = "block";
+                            });
 
                             // Wiki navigation popup
                             document.getElementById("wikiNavLink").addEventListener("click", (e) => {
-    e.preventDefault();
-    const popup = document.getElementById("floatingPopup");
-    popup.innerHTML = document.getElementById("wikiNavPopup").innerHTML;
-    popup.style.display = "block";
-});
+                                e.preventDefault();
+                                const popup = document.getElementById("floatingPopup");
+                                popup.innerHTML = document.getElementById("wikiNavPopup").innerHTML;
+                                popup.style.display = "block";
+                            });
 
                             /* Pointer cursor feedback */
                             map.on("mouseenter", "places", () => (map.getCanvas().style.cursor = "pointer"));
@@ -440,7 +439,7 @@
                                                     zoom: 10,
                                                     speed: 0.8,
                                                     curve: 1.5,
-                                                    essential: true
+                                                    essential: true,
                                                 });
 
                                                 map.once("moveend", () => {
@@ -468,15 +467,6 @@
             });
         </script>
         <!-- Floating popup container for Wikipedia info/navigation -->
-<div id="floatingPopup" class="floating-popup" style="display:none;"></div>
+        <div id="floatingPopup" class="floating-popup" style="display: none;"></div>
     </body>
 </html>
-
-
-
-
-
-
-
-
-
