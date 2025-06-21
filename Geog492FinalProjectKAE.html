@@ -35,6 +35,8 @@
                 width: 100%;
             }
 
+            /*-----------Pop-up styling---------------*/
+            
             /* Responsive images inside popups */
             .popupImage {
                 max-width: 250px;
@@ -51,7 +53,15 @@
                 color: #111;
                 line-height: 1.4;
             }
+            
+            /* Center name text */
+            .mapboxgl-popup-content strong {
+                display: block;
+                text-align: center;
+            }
 
+            /*-----------Infobox styling---------------*/
+            
             /* Floating info/legend container in top-left */
             #infobox {
                 position: absolute;
@@ -71,9 +81,42 @@
                 font-size: 11.5px;
                 line-height: 1.3;
                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-                max-width: 440px;
+                max-width: 400px;
             }
+            
+            /* Floating infobox styling */
+            .floating-popup {
+                position: absolute;
+                top: 212px; /* adjust to place it below the infobox */
+                left: 190px; /* adjust away from infobox */
+                background: rgba(255, 255, 255, 0.45);
+                border-radius: 3px;
+                padding: 6px 10px;
+                font-family: "Georgia", "Palatino Linotype", "Book Antiqua", serif;
+                font-size: 11.5px;
+                line-height: 1.3;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                max-width: 220px;
+    pointer-events: none;
+    z-index: 2;
+}
+            .floating-popup * {
+  pointer-events: auto; /* re-enable interaction for content inside */
+}
 
+.close-btn {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+            /*-------------------Title styling-------------*/
             /* Title styles */
             #title h1 {
                 font-size: 13px;
@@ -86,9 +129,10 @@
                 font-weight: normal;
             }
 
+            /*-------------------Legend styling-------------*/
             /* Legend layout */
             #legend {
-                width: 200px;
+                width: 150px;
             }
             #legend h3 {
                 margin: 0 0 6px;
@@ -110,6 +154,7 @@
                 height: 18px;
                 margin-right: 6px;
             }
+            
             /* Allow the markers underneath textboxes to be clickable */
 
             #infobox {
@@ -122,6 +167,21 @@
             #infobox label,
             #infobox select {
                 pointer-events: auto;
+            }
+            
+            /* Reset button style */
+            #resetBtn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: green;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 999;
             }
         </style>
     </head>
@@ -138,13 +198,28 @@
             </div>
             <div id="description">
                 <p>
-                    This map highlights small Oregon towns and former towns, grouped by the economic or historical context for their existence. Click a marker to see archival images and learn more. Each town links to a Wikipedia article I
-                    created or expanded, part of an ongoing effort to surface local histories and rescue overlooked places from obscurity.
+                    This map highlights small Oregon towns and former towns, grouped by the economic or historical context for their existence. Click a marker to see archival images and learn more. Each town links to a <a href="#" id="wikiInfoLink">Wikipedia</a> article I
+                    created or expanded, part of an ongoing effort to surface local histories and rescue overlooked places from obscurity.<br><br>
+                    <a id="wikiNavLink" href="#" style="display: block; text-align: center; font-size: smaller;">Navigating Wikipedia</a>
                 </p>
             </div>
             <div id="legend">
             </div>
+            <div id="wikiInfoPopup" class="floating-popup" style="display: none;">
+                <button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+                <strong>About Wikipedia</strong><br><br>
+                Wikipedia is a free, collaboratively edited online encyclopedia supported by the Wikimedia Foundation. It allows anyone to contribute or edit articles.
+            </div>
+                <div id="wikiNavPopup" class="floating-popup" style="display: none;">
+                <button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+                <strong>Navigating Wikipedia</strong><br><br>
+                <strong>More Maps!</strong> In the upper left corner of the Wikipedia article, click on the coordinates to access a variety of maps.<br><br>
+                <strong>More Images!</strong> At the bottom of the Wikipedia article, look for links to more photos and related content.
+            </div>
         </div>
+
+        <!--Reset button-->
+        <div id="resetBtn">Reset Map</div>
 
         <!-- Main mapping script -->
         <script>
@@ -160,7 +235,10 @@
                 minZoom: 6,                 // User can't zoom out past here
                 maxZoom: 15,                // User can't zoom in past here
             });
-
+   
+            // Add navigation control (zoom in/out buttons, no compass)
+            map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-right");
+            
             // Track the popup that is currently open
             let currentPopup = null;
 
@@ -187,8 +265,7 @@
 
             // Load event fires once base style is ready
             map.on("load", () => {
-                // --- initial state & constraints ---------------------------------
-                // ------------------------------------------------------------------
+            
                 // List of custom marker icons to register
                 const icons = [
                     ["Mining-icon", "Mining.png"],
@@ -200,6 +277,25 @@
                     ["Fishing-icon", "Fishing.png"]
                 ];
 
+                // Reset map to initial bounds if Reset Map button is pressed           
+                document.getElementById("resetBtn").addEventListener("click", () => {
+                    if (currentPopup) {
+                    currentPopup.remove();
+                    currentPopup = null;
+                    }
+                    
+                    // Hide shared floating popup box
+    document.getElementById("floatingPopup").style.display = "none";
+                    
+                 map.flyTo({
+                    center: [-120.6, 44.15], // Original center
+                    zoom: 6.75,              // Original zoom
+                    speed: 0.8,                   // optional: adjust fly speed
+                    curve: 1.42                   // optional: adjust fly curve
+                    });
+                });
+
+                // Image helper
                 let loadedCount = 0; // helper to know when all images are processed
 
                 // Pre-load each PNG and register with the style
@@ -261,6 +357,22 @@
                                     .setHTML(description)
                                     .addTo(map);
                             });
+                            
+                            // Wiki info popup (top-left offset to avoid overlapping infobox)
+                            document.getElementById("wikiInfoLink").addEventListener("click", (e) => {
+    e.preventDefault();
+    const popup = document.getElementById("floatingPopup");
+    popup.innerHTML = document.getElementById("wikiInfoPopup").innerHTML;
+    popup.style.display = "block";
+});
+
+                            // Wiki navigation popup
+                            document.getElementById("wikiNavLink").addEventListener("click", (e) => {
+    e.preventDefault();
+    const popup = document.getElementById("floatingPopup");
+    popup.innerHTML = document.getElementById("wikiNavPopup").innerHTML;
+    popup.style.display = "block";
+});
 
                             /* Pointer cursor feedback */
                             map.on("mouseenter", "places", () => (map.getCanvas().style.cursor = "pointer"));
@@ -287,7 +399,7 @@
                                         grouped[cat].sort((a, b) => a.properties.name.localeCompare(b.properties.name));
                                     }
 
-                                    // Display legend groups sorted alphabetically by type
+                                    // Display legend groups sorted alphabetically by industry
                                     for (const cat of Object.keys(grouped).sort()) {
                                         const groupBox = document.createElement("div");
                                         const icon = document.createElement("img");
@@ -355,6 +467,8 @@
                 });
             });
         </script>
+        <!-- Floating popup container for Wikipedia info/navigation -->
+<div id="floatingPopup" class="floating-popup" style="display:none;"></div>
     </body>
 </html>
 
